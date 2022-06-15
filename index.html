@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>IP tracker</h1>
+    </header>
+    <!-- <h2>Get Anyone's Details just by one click!</h2> -->
+
+    <a class="fancy-button center" href="generateLink.html">generate your own link.</a>
+
+    <div class="container">
+        <h3>Goto Deshboard</h3>
+        <form action="auth.php" method="post">
+            <div class="formgrp">
+                <label for="id">id : </label><br>
+                <input type="text" name="id" id="id" required>
+            </div>
+            <div class="formgrp">
+                <label for="password">password : </label><br>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="formgrp">
+                <input type="submit" name="submit" class="fancy-button" id="submit-btn" value="Access">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

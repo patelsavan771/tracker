@@ -1,0 +1,106 @@
+body {
+    background-color: rgb(220, 221, 222);
+}
+
+header {
+    text-align: center;
+}
+
+.user-info {
+    /* border: 1px solid red; */
+    min-width: 500px;
+    width: 550px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: inset;
+}
+
+.row {
+    margin: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.button-row {
+    margin: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.dashboard-btn {
+    text-decoration: none;
+}
+
+.delete {
+    color: red;
+}
+
+.report {
+    color: rgb(27, 172, 220);
+    border: none;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.logout {
+    color: rgb(148, 18, 241);
+    /* float: right; */
+}
+
+.data-table {
+    /* border: 1px solid red; */
+    min-width: 550px;
+    width: 80%;
+
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: inset;
+
+}
+
+table {
+    width: 100%;
+}
+
+table,
+td,
+th {
+    border: 1px solid rgb(127, 127, 127);
+    border-collapse: collapse;
+}
+
+th {
+    padding: 5px;
+    background-color: #ccc;
+}
+
+td {
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(220, 220, 220);
+}
+
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .data-table {
+        width: 100%;
+    }
+}
