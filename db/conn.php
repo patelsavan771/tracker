@@ -47,6 +47,14 @@ function isValidUser($conn, $id, $password) {
 
 // functioinsertData()
 
+function storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $city){
+    $q = "insert into storage (id, date, time, ip, b_name, b_version, b_platform, device, country, city) values ('$id', '$date_db', '$time_db', '$ip', '$b_name', '$b_version', '$b_platform', '$device', '$country', '$city')";
+
+    $ret = mysqli_query($conn, $q);
+    return $ret;
+}
+
+
 function getCount($conn, $id) {
     $q = "select count(*) as clicks from storage where id = '$id'";
     $result = mysqli_query($conn, $q);

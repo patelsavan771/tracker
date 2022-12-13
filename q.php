@@ -28,9 +28,16 @@ $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_i
 $country = $geo["geoplugin_countryName"];
 $city = $geo["geoplugin_city"];
 
-$q = "insert into storage (id, date, time, ip, b_name, b_version, b_platform, device, country, city) values ('$id', '$date_db', '$time_db', '$ip', '$b_name', '$b_version', '$b_platform', '$device', '$country', '$city')";
+$ret = storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $city);
 
-mysqli_query($conn, $q);
+if(!$ret) {
+    die("problem".mysqli_error($conn));
+}
+else {
+    print "success";
+}
+
+
 // for database YYYY-MM-DD
 
 
