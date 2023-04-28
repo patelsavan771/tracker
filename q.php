@@ -13,7 +13,7 @@ $ip = $_SERVER["REMOTE_ADDR"];
 $device = $_SERVER['HTTP_USER_AGENT'];
 
 // gwtting browser details
-$ua=getBrowser();
+$ua = getBrowser();
 // $yourbrowser= "Your browser: " . $ua['name'] . " / " . $ua['version'] . " / " .$ua['platform'] . "<br >";
 // Google Chrome/ 102.0.0.0 / windows 
 //   name          version    platform
@@ -21,20 +21,23 @@ $ua=getBrowser();
 
 $b_name = $ua['name'];
 $b_version = $ua['version'];
-$b_platform = $ua['platform'] ;
+$b_platform = $ua['platform'];
 
 $user_ip = getenv('REMOTE_ADDR');
+$user_ip = '103.206.137.0'; // remove
 $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
 $country = $geo["geoplugin_countryName"];
 $city = $geo["geoplugin_city"];
+$state = $geo['geoplugin_region'];
 
-$ret = storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $city);
 
-if(!$ret) {
-    die("problem".mysqli_error($conn));
-}
-else {
-    print "success";
+
+$ret = storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $state, $city);
+
+if (!$ret) {
+    die("problem" . mysqli_error($conn));
+} else {
+    // print "success";
 }
 
 
@@ -45,6 +48,7 @@ else {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,20 +57,23 @@ else {
 
     <style>
         .hidden {
-            display:none;
+            display: none;
         }
+
         #demo {
-            color:white;
+            color: white;
         }
+
         body {
             margin: 0;
             padding: 0;
             background-color: #151b29;
-            display:flex;
+            display: flex;
             height: 100vh;
             align-items: center;
             justify-content: center;
         }
+
         .fancy-button {
             background: none;
             color: #ffa260;
@@ -84,13 +91,14 @@ else {
         }
     </style>
 </head>
+
 <body>
     <div class="hidden">
-        IP : <?= $ip?>
+        IP : <?= $ip ?>
         <br>
         Device : <?= $device ?>
         <br>
-        Date : <?= $date_show?>
+        Date : <?= $date_show ?>
         <br>
         B name : <?= $b_name ?>
         <br>
@@ -100,16 +108,26 @@ else {
         <br>
         B platform : <?= $b_platform ?>
         <br>
+        <br>
+        B platform : <?= $country ?>
+        <br>
+        <br>
+        B platform : <?= $state ?>
+        <br>
+        <br>
+        B platform : <?= $city ?>
+        <br>
     </div>
-    
 
-    <button class="fancy-button" onclick="getLocation()">Click me babe</button>
+
+    <button class="fancy-button" onclick="getLocation()">Click Here</button>
 
     <span id="demo"></span>
 
 
     <script>
         var x = document.getElementById("demo");
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -120,10 +138,11 @@ else {
 
         function showPosition(position) {
             x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
+                "<br>Longitude: " + position.coords.longitude;
         }
     </script>
 
-    
+
 </body>
+
 </html>

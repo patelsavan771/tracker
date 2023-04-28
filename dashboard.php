@@ -1,6 +1,6 @@
 <?php
 require "db/conn.php";
-if(!isset($_SESSION["id"])) {
+if (!isset($_SESSION["id"])) {
     header("location: index.html");
 }
 $id = $_SESSION["id"];
@@ -10,6 +10,7 @@ $ret = getDataById($conn, $id);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,7 @@ $ret = getDataById($conn, $id);
     <title>Dashboard</title>
     <link rel="stylesheet" href="styles/dashboard.css">
 </head>
+
 <body>
     <header>
         <h1>IP Tracker</h1>
@@ -26,8 +28,8 @@ $ret = getDataById($conn, $id);
 
     <div class="user-info">
         <div class="row">
-            Your URL : <?php print "www.tracker.com/q.php?q=".$_SESSION["id"] ?>
-        </div> 
+            Your URL : <?php print "www.tracker.com/q.php?q=" . $_SESSION["id"] ?>
+        </div>
         <div class="row">
             Numbers of clicks : <?php print(getCount($conn, $id)); ?>
         </div>
@@ -50,6 +52,7 @@ $ret = getDataById($conn, $id);
                     <th>Platform</th>
                     <th>Device</th>
                     <th>Country</th>
+                    <th>State</th>
                     <th>City</th>
                 </tr>
             </thead>
@@ -57,19 +60,20 @@ $ret = getDataById($conn, $id);
             <tbody>
                 <?php while ($result = mysqli_fetch_assoc($ret)) { ?>
                     <tr>
-                        <td><?= $result["date"]?></td>
-                        <td><?= $result["time"]?></td>
-                        <td><?= $result["ip"]?></td>
-                        <td><?= $result["b_name"]?></td>
-                        <td><?= $result["b_version"]?></td>
-                        <td><?= $result["b_platform"]?></td>
-                        <td><?= $result["device"]?></td>
-                        <td><?= $result["country"]?></td>
-                        <td><?= $result["city"]?></td>
+                        <td><?= $result["date"] ?></td>
+                        <td><?= $result["time"] ?></td>
+                        <td><?= $result["ip"] ?></td>
+                        <td><?= $result["b_name"] ?></td>
+                        <td><?= $result["b_version"] ?></td>
+                        <td><?= $result["b_platform"] ?></td>
+                        <td><?= $result["device"] ?></td>
+                        <td><?= $result["country"] ?></td>
+                        <td><?= $result["state"] ?></td>
+                        <td><?= $result["city"] ?></td>
                     </tr>
 
-                    <?php } ?>
-    
+                <?php } ?>
+
 
             </tbody>
         </table>
@@ -81,6 +85,7 @@ $ret = getDataById($conn, $id);
             window.print();
         }
     </script>
-    
+
 </body>
+
 </html>
