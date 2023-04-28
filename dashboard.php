@@ -28,7 +28,8 @@ $ret = getDataById($conn, $id);
 
     <div class="user-info">
         <div class="row">
-            Your URL : <?php print "www.tracker.com/q.php?q=" . $_SESSION["id"] ?>
+            Your URL : <span id="url-span"><?php print "www.tracker06.000webhostapp.com/q.php?q=" . $_SESSION["id"] ?></span>
+            <button id="copy">copy</button>
         </div>
         <div class="row">
             Numbers of clicks : <?php print(getCount($conn, $id)); ?>
@@ -51,9 +52,9 @@ $ret = getDataById($conn, $id);
                     <th>Version</th>
                     <th>Platform</th>
                     <th>Device</th>
-                    <th>Country</th>
-                    <th>State</th>
                     <th>City</th>
+                    <th>State</th>
+                    <th>Country</th>
                 </tr>
             </thead>
 
@@ -67,9 +68,9 @@ $ret = getDataById($conn, $id);
                         <td><?= $result["b_version"] ?></td>
                         <td><?= $result["b_platform"] ?></td>
                         <td><?= $result["device"] ?></td>
-                        <td><?= $result["country"] ?></td>
-                        <td><?= $result["state"] ?></td>
                         <td><?= $result["city"] ?></td>
+                        <td><?= $result["state"] ?></td>
+                        <td><?= $result["country"] ?></td>
                     </tr>
 
                 <?php } ?>
@@ -84,6 +85,12 @@ $ret = getDataById($conn, $id);
         function generateReport() {
             window.print();
         }
+
+        const btn = document.querySelector('#copy');
+        btn.addEventListener('click', () => {
+            var text = document.querySelector('#url-span').textContent;
+            navigator.clipboard.writeText(text);
+        });
     </script>
 
 </body>

@@ -24,7 +24,7 @@ $b_version = $ua['version'];
 $b_platform = $ua['platform'];
 
 $user_ip = getenv('REMOTE_ADDR');
-$user_ip = '103.206.137.0'; // remove
+// $user_ip = '103.206.137.0'; // remove
 $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
 $country = $geo["geoplugin_countryName"];
 $city = $geo["geoplugin_city"];
@@ -53,7 +53,7 @@ if (!$ret) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>demo</title>
+    <title>welcome</title>
 
     <style>
         .hidden {
