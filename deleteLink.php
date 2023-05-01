@@ -18,6 +18,4 @@ else {
     </script>";
     include "dashboard.php";
 }
-
-
 ?>

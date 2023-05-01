@@ -24,7 +24,7 @@ $b_version = $ua['version'];
 $b_platform = $ua['platform'];
 
 $user_ip = getenv('REMOTE_ADDR');
-// $user_ip = '103.206.137.0'; // remove
+$user_ip = '103.206.137.0'; // remove
 $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
 $country = $geo["geoplugin_countryName"];
 $city = $geo["geoplugin_city"];
@@ -32,18 +32,14 @@ $state = $geo['geoplugin_region'];
 
 
 
-$ret = storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $state, $city);
+$id = storeData($conn, $id, $date_db, $time_db, $user_ip, $b_name, $b_version, $b_platform, $device, $country, $state, $city);
 
-if (!$ret) {
-    die("problem" . mysqli_error($conn));
-} else {
-    // print "success";
-}
-
-
+// if (!$ret) {
+//     die("problem" . mysqli_error($conn));
+// } else {
+//     // print "success";
+// }
 // for database YYYY-MM-DD
-
-
 ?>
 
 <!DOCTYPE html>
@@ -94,6 +90,8 @@ if (!$ret) {
 
 <body>
     <div class="hidden">
+        id : <?= $id ?>
+        <br>
         IP : <?= $ip ?>
         <br>
         Device : <?= $device ?>
@@ -119,14 +117,13 @@ if (!$ret) {
         <br>
     </div>
 
-
     <button class="fancy-button" onclick="getLocation()">Click Here</button>
-
     <span id="demo"></span>
-
+    <span id="id" class="hidden"><?= $id ?></span>
 
     <script>
-        var x = document.getElementById("demo");
+        let x = document.getElementById("demo");
+        let id = document.getElementById("id").textContent;
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -137,12 +134,21 @@ if (!$ret) {
         }
 
         function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-                "<br>Longitude: " + position.coords.longitude;
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            x.innerHTML = "Latitude: " + lat +
+                "<br>Longitude: " + lon + "<br>Id: " + id;
+            sendData(id, lat, lon);
+        }
+
+        function sendData(id, lat, lon) {
+            fetch(`/tracker/saveLocation.php?id=${id}&lat=${lat}&lon=${lon}`)
+                .then(() => {})
+                .catch((err) => {
+                    console.log(err);
+                })
         }
     </script>
-
-
 </body>
 
 </html>

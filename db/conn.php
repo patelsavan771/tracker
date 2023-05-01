@@ -1,5 +1,6 @@
 <?php
 session_start();
+$hostURL = "localhost/tracker";
 $dbhost = "localhost";
 $dbusername = "root";
 $dbpassword = "";
@@ -51,16 +52,17 @@ function isValidUser($conn, $id, $password)
 
 function storeData($conn, $id, $date_db, $time_db, $ip, $b_name, $b_version, $b_platform, $device, $country, $state, $city)
 {
-  $q = "insert into storage (id, date, time, ip, b_name, b_version, b_platform, device, country, state, city) values ('$id', '$date_db', '$time_db', '$ip', '$b_name', '$b_version', '$b_platform', '$device', '$country', '$state', '$city')";
+  $q = "insert into storage (user_id, date, time, ip, b_name, b_version, b_platform, device, country, state, city) values ('$id', '$date_db', '$time_db', '$ip', '$b_name', '$b_version', '$b_platform', '$device', '$country', '$state', '$city')";
 
   $ret = mysqli_query($conn, $q);
-  return $ret;
+  $id = mysqli_insert_id($conn);
+  return $id;
 }
 
 
 function getCount($conn, $id)
 {
-  $q = "select count(*) as clicks from storage where id = '$id'";
+  $q = "select count(*) as clicks from storage where user_id = '$id'";
   $result = mysqli_query($conn, $q);
   $result = mysqli_fetch_assoc($result);
   return $result["clicks"];
@@ -68,19 +70,28 @@ function getCount($conn, $id)
 
 function getDataById($conn, $id)
 {
-  $q = "select * from storage where id = '$id'";
+  $q = "select * from storage where user_id = '$id'";
   $result = mysqli_query($conn, $q);
   return $result;
 }
 
 function deleteLink($conn, $id)
 {
-  $q = "delete from storage where id = '$id'";
+  $q = "delete from storage where user_id = '$id'";
   $result = mysqli_query($conn, $q);
   $q = "delete from login where id = '$id'";
   $result1 = mysqli_query($conn, $q);
 
   return ($result && $result1);
+}
+
+function storeLocation($conn, $id, $lat, $lon)
+{
+  $q = "Update storage set latitude='$lat', longitude='$lon' where id = $id";
+
+  $ret = mysqli_query($conn, $q);
+
+  return $ret;
 }
 
 
